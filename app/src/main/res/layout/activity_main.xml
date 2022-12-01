@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity"
+    android:background="@drawable/background"
+    >
+
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tv_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City name: "
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textSize="18dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/tv_city"
+        android:weightSum="5"
+        app:layout_constraintTop_toBottomOf="@+id/tv_city">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_city"
+        android:layout_margin="10dp"
+        android:layout_weight="4.5"
+        android:hint="Enter city "
+        android:padding="5dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/edit_city"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="14sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:id="@+id/search"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_search"
+            app:tint="@color/black" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_weather"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_weather"
+        android:scrollbars="vertical"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

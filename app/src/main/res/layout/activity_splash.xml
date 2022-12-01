@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.SplashActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/av_lf"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        app:lottie_fileName="splash.json"
+        android:layout_below="@+id/tv_splash"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <TextView
+        android:id="@+id/tv_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="APP WEATHER"
+        android:layout_marginTop="50dp"
+        android:textSize="50sp"
+        android:layout_centerHorizontal="true"
+        />
+
+
+
+
+</RelativeLayout>
