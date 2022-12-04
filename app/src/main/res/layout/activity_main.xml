@@ -114,12 +114,7 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/img_weather_pictures"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:background="@mipmap/ic_launcher"
-                    />
+
 
             </LinearLayout>
 
