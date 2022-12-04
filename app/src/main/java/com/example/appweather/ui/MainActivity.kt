@@ -1,69 +1,66 @@
 package com.example.appweather.ui
 
-import android.content.ContentValues.TAG
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.appweather.databinding.ActivityMainBinding
-import com.example.appweather.model.All
+import com.example.appweather.model.AllData
+
+import com.example.appweather.service.ApiService
+import com.example.appweather.service.RetrofitApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
+
     private lateinit var binding: ActivityMainBinding
-    lateinit var mainAdapter: MainAdapter
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
-        initComponents()
-
-        binding.search.setOnClickListener { v ->
-            viewModel.search(binding.editCity.text.toString())
-
-        }
-        getLive()
 
 
-
-
-    }
-
-    private fun initComponents() {
-        //Recycler View initialize
-        mainAdapter = MainAdapter()
-        binding.rvWeather.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-            adapter = mainAdapter
-        }
-    }
-
-    fun getLive() {
-        viewModel.observeDetail().observe(this, Observer { data ->
-            if (data != null) {
-                mainAdapter.setAdapterList(data as ArrayList<All>)
-            }
-        })
-        viewModel.getSearchControl().observe(this, Observer { bool ->
-            if (bool == true) {
-                Toast.makeText(this, "You should enter at least one letter", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
+        binding.search.setOnClickListener(View.OnClickListener {
+            getWeather(binding.editCity.text.toString().trim())
+            binding.tvCityName.text = binding.editCity.text.toString()
 
         })
 
 
     }
 
+    fun getWeather(cityName: String){
 
+
+        var apiInterface = RetrofitApi.getClient()?.create(ApiService::class.java)
+        var call = apiInterface?.getWeather(cityName)
+        call?.enqueue(object : Callback<AllData>{
+            override fun onResponse(call: Call<AllData>, response: Response<AllData>) {
+                binding.tvCityCode.text = response.body()?.id.toString()
+                binding.tvHumidity.text = response?.body()?.main?.humidity.toString()
+                binding.tvWindSpeed.text =response?.body()?.wind?.speed.toString()
+
+            }
+
+            override fun onFailure(call: Call<AllData>, t: Throwable) {
+                Log.d("DATA", "problem")
+            }
+        })
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }
